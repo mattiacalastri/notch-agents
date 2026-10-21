@@ -47,14 +47,11 @@ Il notch si affaccia per qualche secondo con la domanda, e un suono.
 <img src="docs/notch-aperto.png" width="560" alt="Notch Agenti aperto: un riquadro per sessione, i limiti di Claude e Codex, i token di oggi">
 </p>
 
-| | |
-|---|---|
-| 🧩 **Un riquadro per sessione** | Cosa sta facendo («modifica main.swift») o cosa ti chiede, e da quanto. Chi aspetta te sta in cima. |
-| 🖱️ **Un clic e sei lì** | Porta in primo piano il terminale di quella sessione; su Terminal e iTerm2 anche la scheda esatta. |
-| ✨ **Nuove sessioni dal notch** | «Lancia Claude Code» o «Lancia Codex»: scrivi cosa deve fare e si apre nel terminale. |
-| 📊 **I tuoi limiti sotto gli occhi** | Quanto resta delle 5 ore e della settimana, per Claude e per Codex, e i token di oggi contro ieri. |
-| 🔔 **Suoni discreti** | Una domanda si sente più di un turno finito; due kit, o spenti. |
-| 💻 **Anche senza notch** | Sui Mac senza notch diventa una piccola pillola sotto il bordo dello schermo. |
+<table>
+<tr><td width="50%" valign="top">🧩 <b>Un riquadro per sessione</b><br>Cosa sta facendo («modifica main.swift») o cosa ti chiede, e da quanto. Chi aspetta te sta in cima.</td><td width="50%" valign="top">👆 <b>Un clic e sei lì</b><br>Porta in primo piano il terminale di quella sessione; su Terminal e iTerm2 anche la scheda esatta.</td></tr>
+<tr><td width="50%" valign="top">✨ <b>Nuove sessioni dal notch</b><br>«Lancia Claude Code» o «Lancia Codex»: scrivi cosa deve fare e si apre nel terminale.</td><td width="50%" valign="top">📊 <b>I limiti sotto gli occhi</b><br>Quanto resta delle 5 ore e della settimana, per Claude e per Codex, e i token di oggi contro ieri.</td></tr>
+<tr><td width="50%" valign="top">🔔 <b>Suoni discreti</b><br>Una domanda si sente più di un turno finito. Due kit, o spenti.</td><td width="50%" valign="top">💻 <b>Anche senza notch</b><br>Sui Mac senza notch diventa una piccola pillola sotto il bordo dello schermo.</td></tr>
+</table>
 
 ## Installazione
 
@@ -77,12 +74,10 @@ Lo script compila l'app, la mette in `~/Applications`, la avvia al login e la co
 
 ### Cosa serve
 
-| | |
-|---|---|
-| **macOS** | 14 Sonoma o successivo |
-| **Claude Code** | [installato](https://docs.claude.com/en/docs/claude-code) e con accesso fatto |
-| **Strumenti Apple** | `xcode-select --install` (servono per compilare) |
-| **Codex CLI** | facoltativo, con accesso tramite ChatGPT |
+- **macOS 14** Sonoma o successivo
+- **[Claude Code](https://docs.claude.com/en/docs/claude-code)** installato e con accesso fatto
+- **Strumenti di Apple** per compilare: `xcode-select --install`
+- **Codex CLI**, facoltativo, con accesso tramite ChatGPT
 
 I limiti di 5 ore e della settimana compaiono con un abbonamento Pro o Max: con una chiave API, Claude Code non li comunica.
 
@@ -107,12 +102,12 @@ I limiti di 5 ore e della settimana compaiono con un abbonamento Pro o Max: con 
 ## Come funziona
 
 ```
-Claude Code ──hook──────────▶ ~/.notch-agenti/run/state_<tty>.txt        working · notify · idle
-            ──hook──────────▶ ~/.notch-agenti/run/transcript_<tty>.txt
-            ──status line───▶ ~/.notch-agenti/run/statusline.json         limiti dell'account
+Claude Code ── hook ─────────▶  ~/.notch-agenti/run/state_<tty>.txt
+            ── hook ─────────▶  ~/.notch-agenti/run/transcript_<tty>.txt
+            ── status line ──▶  ~/.notch-agenti/run/statusline.json
                                           │
-Notch Agenti ◀── ogni secondo: `ps` (quali terminali hanno un processo claude vivo) + quei file
-             ◀── le trascrizioni in ~/.claude/projects: cosa fa, cosa chiede, i token di oggi
+Notch Agenti ◀── ogni secondo: ps (terminali con un claude vivo) + quei file
+             ◀── le trascrizioni in ~/.claude/projects (domande, token)
 ```
 
 Una sessione conta solo finché sul suo terminale c'è un processo `claude` vivo. Il codice è in due parti: `Sources/NotchAgentiCore`, la logica, tutta coperta da test, e `Sources/NotchAgenti/main.swift`, il pannello sul notch in AppKit + SwiftUI.
