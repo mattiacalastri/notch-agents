@@ -775,11 +775,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         refresh()
         if pinnedOpen { DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { self.setOpen(true) } }
-        if demo {   // NOTCH_AGENTI_DEMO=1 opens and closes on its own, to film the animation
+        if demoMode == "1" {   // NOTCH_AGENTI_DEMO=1 opens and closes on its own, to film the animation
             Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { [weak self] _ in
                 guard let self else { return }
                 self.model.open.toggle()
             }
+        } else if demoMode == "tour" {   // NOTCH_AGENTI_DEMO=tour: a session asks, the notch peeks, opens, closes
+            tour()
+            Timer.scheduledTimer(withTimeInterval: 10.5, repeats: true) { [weak self] _ in self?.tour() }
         }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in self?.refresh() }
 
@@ -798,7 +801,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     /// NOTCH_AGENTI_OPEN=1 keeps the blob open (screenshots, checks).
     let pinnedOpen = ProcessInfo.processInfo.environment["NOTCH_AGENTI_OPEN"] == "1"
-    let demo = ProcessInfo.processInfo.environment["NOTCH_AGENTI_DEMO"] == "1"
+    let demoMode = ProcessInfo.processInfo.environment["NOTCH_AGENTI_DEMO"]
+    var demo: Bool { demoMode != nil }
+
+    /// One round of the tour, 10.5 s, for the README animation.
+    func tour() {
+        let steps: [(TimeInterval, () -> Void)] = [
+            (1.2, { self.model.peek = self.model.shown.first { $0.state == .asking } ?? self.model.shown.first }),
+            (4.2, { self.model.peek = nil }),
+            (5.2, { self.model.open = true }),
+            (6.4, { self.model.hoverTTY = self.model.shown.first?.tty }),
+            (7.4, { self.model.hoverTTY = self.model.shown.dropFirst().first?.tty }),
+            (8.4, { self.model.hoverTTY = nil }),
+            (9.2, { self.model.open = false }),
+        ]
+        for (t, step) in steps { DispatchQueue.main.asyncAfter(deadline: .now() + t, execute: step) }
+    }
 
     func hoverCheck() {
         if demo { return }

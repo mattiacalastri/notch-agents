@@ -2,7 +2,9 @@
 
 Il notch del MacBook diventa il pannello di controllo delle tue sessioni di **Claude Code**.
 
-<p align="center"><img src="docs/screenshot.png" width="560" alt="Notch Agenti aperto: le sessioni, i limiti dell'account, i token di oggi"></p>
+<p align="center"><img src="docs/notch-tour.gif" width="600" alt="Una sessione fa una domanda: il notch si affaccia da solo; passandoci sopra si apre con tutte le sessioni, i limiti dell'account e i token di oggi"></p>
+
+<p align="center"><sub>Una sessione ti fa una domanda: il notch si affaccia da solo. Ci passi sopra col mouse e si apre.</sub></p>
 
 - **Da chiuso**, ai lati del notch: quante sessioni lavorano e quante **aspettano te**.
 - **Passandoci sopra col mouse** si apre: un riquadro per sessione con cosa sta facendo («modifica main.swift») o cosa ti sta chiedendo («Preferisci il grafico o la tabella?»), e da quanto.
@@ -12,6 +14,8 @@ Il notch del MacBook diventa il pannello di controllo delle tue sessioni di **Cl
 - **In basso**: l'account, quanto resta dei limiti di 5 ore e della settimana (Claude e, se lo usi, Codex) e i token di oggi rispetto a ieri.
 
 Funziona anche sui Mac senza notch: diventa una piccola pillola sotto il bordo dello schermo.
+
+<p align="center"><img src="docs/screenshot.png" width="520" alt="Notch Agenti aperto: un riquadro per sessione, i limiti di Claude e Codex, i token di oggi"></p>
 
 ## Cosa serve
 
@@ -77,7 +81,7 @@ bash Tests/install_test.sh              # installa e disinstalla in una cartella
 ```
 
 - `NOTCH_AGENTI_FIXTURE=1 NOTCH_AGENTI_OPEN=1 .build/debug/NotchAgenti` apre il notch con dati finti (per le schermate).
-- `NOTCH_AGENTI_DEMO=1` lo apre e chiude ogni 1,5 secondi, per filmare l'animazione.
+- `NOTCH_AGENTI_DEMO=1` lo apre e chiude ogni 1,5 secondi; `NOTCH_AGENTI_DEMO=tour` (con `NOTCH_AGENTI_FIXTURE=1`) ripete il giro dell'animazione in cima a questa pagina, per filmarlo.
 - `python3 scripts/sounds_make.py` rigenera i suoni «Sine» (sintetizzati, nessun campione di terzi).
 
 ## Licenza
