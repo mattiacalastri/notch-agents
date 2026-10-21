@@ -1,30 +1,60 @@
+<div align="center">
+
 # Notch Agenti
 
-Il notch del MacBook diventa il pannello di controllo delle tue sessioni di **Claude Code**.
+**Il notch del MacBook diventa il pannello di controllo delle tue sessioni di Claude Code.**<br>
+Chi lavora, chi aspetta te, cosa ti sta chiedendo. Senza cercare il terminale giusto.
 
-<p align="center"><img src="docs/notch-tour.gif" width="600" alt="Una sessione fa una domanda: il notch si affaccia da solo; passandoci sopra si apre con tutte le sessioni, i limiti dell'account e i token di oggi"></p>
+[![macOS 14+](https://img.shields.io/badge/macOS-14%2B-000000?style=flat-square&logo=apple&logoColor=white)](#cosa-serve)
+[![Swift](https://img.shields.io/badge/Swift-5.10-F05138?style=flat-square&logo=swift&logoColor=white)](Package.swift)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-hook-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://docs.claude.com/en/docs/claude-code)
+[![Licenza MIT](https://img.shields.io/badge/licenza-MIT-2EA44F?style=flat-square)](LICENSE)
 
-<p align="center"><sub>Una sessione ti fa una domanda: il notch si affaccia da solo. Ci passi sopra col mouse e si apre.</sub></p>
+<br>
 
-- **Da chiuso**, ai lati del notch: quante sessioni lavorano e quante **aspettano te**.
-- **Passandoci sopra col mouse** si apre: un riquadro per sessione con cosa sta facendo («modifica main.swift») o cosa ti sta chiedendo («Preferisci il grafico o la tabella?»), e da quanto.
-- **Quando una sessione si ferma per te** il notch si affaccia da solo per qualche secondo, con un suono.
-- **Un clic su un riquadro** porta in primo piano il suo terminale (su Terminal e iTerm2 anche la scheda esatta).
-- **«Lancia Claude Code» / «Lancia Codex»**: scrivi cosa deve fare e si apre una nuova sessione nel terminale.
-- **In basso**: l'account, quanto resta dei limiti di 5 ore e della settimana (Claude e, se lo usi, Codex) e i token di oggi rispetto a ieri.
+<img src="docs/notch-tour.gif" width="640" alt="Una sessione fa una domanda: il notch si affaccia da solo; passandoci sopra si apre con tutte le sessioni, i limiti dell'account e i token di oggi">
 
-Funziona anche sui Mac senza notch: diventa una piccola pillola sotto il bordo dello schermo.
+<sub>Una sessione ti fa una domanda → il notch si affaccia da solo → ci passi sopra col mouse e si apre.</sub>
 
-<p align="center"><img src="docs/screenshot.png" width="520" alt="Notch Agenti aperto: un riquadro per sessione, i limiti di Claude e Codex, i token di oggi"></p>
+<br><br>
 
-## Cosa serve
+[**Installa**](#installazione) &nbsp;·&nbsp; [Cosa fa](#cosa-fa) &nbsp;·&nbsp; [Cosa tocca sul tuo Mac](#cosa-tocca-sul-tuo-mac) &nbsp;·&nbsp; [Come funziona](#come-funziona)
 
-- macOS 14 (Sonoma) o successivo
-- [Claude Code](https://docs.claude.com/en/docs/claude-code) installato e con accesso fatto
-- Gli strumenti da riga di comando di Apple: `xcode-select --install`
-- Facoltativo: [Codex CLI](https://github.com/openai/codex), con accesso tramite ChatGPT
+</div>
 
-I limiti di 5 ore e della settimana compaiono con un abbonamento Pro o Max (con una chiave API Claude Code non li comunica).
+<br>
+
+## Cosa fa
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<img src="docs/notch-chiuso.png" alt="Il notch chiuso: 3 sessioni lavorano, 2 aspettano te">
+<br><br>
+<b>Da chiuso, si legge in mezzo secondo</b><br>
+A sinistra quante sessioni lavorano, a destra quante <b>aspettano te</b>.
+</td>
+<td width="50%" valign="top">
+<img src="docs/notch-si-affaccia.png" alt="Il notch si affaccia: report vendite ti ha fatto una domanda">
+<br><br>
+<b>Quando una sessione si ferma, te lo dice lui</b><br>
+Il notch si affaccia per qualche secondo con la domanda, e un suono.
+</td>
+</tr>
+</table>
+
+<p align="center">
+<img src="docs/notch-aperto.png" width="560" alt="Notch Agenti aperto: un riquadro per sessione, i limiti di Claude e Codex, i token di oggi">
+</p>
+
+| | |
+|---|---|
+| 🧩 **Un riquadro per sessione** | Cosa sta facendo («modifica main.swift») o cosa ti chiede, e da quanto. Chi aspetta te sta in cima. |
+| 🖱️ **Un clic e sei lì** | Porta in primo piano il terminale di quella sessione; su Terminal e iTerm2 anche la scheda esatta. |
+| ✨ **Nuove sessioni dal notch** | «Lancia Claude Code» o «Lancia Codex»: scrivi cosa deve fare e si apre nel terminale. |
+| 📊 **I tuoi limiti sotto gli occhi** | Quanto resta delle 5 ore e della settimana, per Claude e per Codex, e i token di oggi contro ieri. |
+| 🔔 **Suoni discreti** | Una domanda si sente più di un turno finito; due kit, o spenti. |
+| 💻 **Anche senza notch** | Sui Mac senza notch diventa una piccola pillola sotto il bordo dello schermo. |
 
 ## Installazione
 
@@ -34,12 +64,27 @@ cd notch-agents
 bash scripts/install.sh
 ```
 
-Lo script compila l'app, la mette in `~/Applications`, la avvia al login e collega Claude Code. Poi porta il mouse sul notch. Le sessioni di Claude Code già aperte compaiono quando le riavvii, le nuove subito.
+Lo script compila l'app, la mette in `~/Applications`, la avvia al login e la collega a Claude Code. Poi porta il mouse sul notch.
 
-La prima volta che clicchi su un riquadro, macOS chiede il permesso di controllare Terminal o iTerm2: serve a selezionare la scheda giusta. Se lo neghi, l'app porta comunque in primo piano la finestra.
+> [!NOTE]
+> Le sessioni di Claude Code già aperte compaiono quando le riavvii; le nuove subito.
+> La prima volta che clicchi su un riquadro, macOS chiede il permesso di controllare Terminal o iTerm2: serve a selezionare la scheda giusta. Se lo neghi, l'app porta comunque in primo piano la finestra.
 
-**Aggiornare:** `git pull && bash scripts/install.sh`
-**Togliere:** `bash scripts/uninstall.sh` (rimette Claude Code com'era)
+| Per | Comando |
+|---|---|
+| Aggiornare | `git pull && bash scripts/install.sh` |
+| Togliere | `bash scripts/uninstall.sh` — rimette Claude Code com'era |
+
+### Cosa serve
+
+| | |
+|---|---|
+| **macOS** | 14 Sonoma o successivo |
+| **Claude Code** | [installato](https://docs.claude.com/en/docs/claude-code) e con accesso fatto |
+| **Strumenti Apple** | `xcode-select --install` (servono per compilare) |
+| **Codex CLI** | facoltativo, con accesso tramite ChatGPT |
+
+I limiti di 5 ore e della settimana compaiono con un abbonamento Pro o Max: con una chiave API, Claude Code non li comunica.
 
 ## Cosa tocca sul tuo Mac
 
@@ -50,28 +95,32 @@ La prima volta che clicchi su un riquadro, macOS chiede il permesso di controlla
 | `~/Applications/Notch Agenti.app` | L'app. |
 | `~/Library/LaunchAgents/com.mattiacalastri.notch-agenti.plist` | L'avvio al login. |
 
-Tutto resta sul tuo Mac. L'unica chiamata in rete è per i limiti di Codex: l'app chiede a `chatgpt.com` gli stessi numeri che chiede Codex CLI, con la sessione che Codex tiene in `~/.codex/auth.json` (la legge, non la scrive e non la mostra). È un indirizzo non documentato da OpenAI: se cambia, la riga di Codex resta all'ultimo valore letto.
+> [!TIP]
+> **Tutto resta sul tuo Mac.** L'unica chiamata in rete è per i limiti di Codex: l'app chiede a `chatgpt.com` gli stessi numeri che chiede Codex CLI, con la sessione che Codex tiene in `~/.codex/auth.json` (la legge, non la scrive e non la mostra). È un indirizzo non documentato da OpenAI: se cambia, la riga di Codex resta all'ultimo valore letto.
 
 ## Uso
 
-- **Clic destro** sul notch aperto → **Suoni**: «Sine» (predefinito), «Sistema» (i suoni del Mac) o spenti; si può spegnere solo il suono di apertura e chiusura; «Prova i suoni» li fa sentire tutti.
-- **Clic destro → Esci** chiude l'app fino al prossimo login (o fino a quando la riapri da `~/Applications`).
+- **Clic destro → Suoni**: «Sine» (predefinito), «Sistema» (i suoni del Mac) o spenti. Si può spegnere solo il suono di apertura e chiusura; «Prova i suoni» li fa sentire tutti.
+- **Clic destro → Esci** chiude l'app fino al prossimo login, o finché non la riapri da `~/Applications`.
 - Il nome di un riquadro è la cartella in cui hai aperto la sessione; l'icona si sceglie dalle parole del nome (`deploy`, `report`, `sito`, `api`…).
 
 ## Come funziona
 
 ```
-Claude Code ──hook──▶ ~/.notch-agenti/run/state_<tty>.txt   working · notify · idle
-            ──hook──▶ ~/.notch-agenti/run/transcript_<tty>.txt
-            ──status line──▶ ~/.notch-agenti/run/statusline.json   limiti dell'account
-                                     │
+Claude Code ──hook──────────▶ ~/.notch-agenti/run/state_<tty>.txt        working · notify · idle
+            ──hook──────────▶ ~/.notch-agenti/run/transcript_<tty>.txt
+            ──status line───▶ ~/.notch-agenti/run/statusline.json         limiti dell'account
+                                          │
 Notch Agenti ◀── ogni secondo: `ps` (quali terminali hanno un processo claude vivo) + quei file
-             ◀── la coda delle trascrizioni (~/.claude/projects): cosa fa, cosa chiede, i token di oggi
+             ◀── le trascrizioni in ~/.claude/projects: cosa fa, cosa chiede, i token di oggi
 ```
 
-Una sessione conta solo finché sul suo terminale c'è un processo `claude` vivo. Il codice è in due parti: `Sources/NotchAgentiCore` (la logica, tutta coperta da test) e `Sources/NotchAgenti/main.swift` (il pannello sul notch, AppKit + SwiftUI).
+Una sessione conta solo finché sul suo terminale c'è un processo `claude` vivo. Il codice è in due parti: `Sources/NotchAgentiCore`, la logica, tutta coperta da test, e `Sources/NotchAgenti/main.swift`, il pannello sul notch in AppKit + SwiftUI.
 
-## Sviluppo
+<details>
+<summary><b>Sviluppo</b></summary>
+
+<br>
 
 ```bash
 swift test                              # la logica
@@ -80,10 +129,19 @@ python3 Tests/claude_settings_test.py   # le modifiche a settings.json
 bash Tests/install_test.sh              # installa e disinstalla in una cartella usa e getta
 ```
 
-- `NOTCH_AGENTI_FIXTURE=1 NOTCH_AGENTI_OPEN=1 .build/debug/NotchAgenti` apre il notch con dati finti (per le schermate).
-- `NOTCH_AGENTI_DEMO=1` lo apre e chiude ogni 1,5 secondi; `NOTCH_AGENTI_DEMO=tour` (con `NOTCH_AGENTI_FIXTURE=1`) ripete il giro dell'animazione in cima a questa pagina, per filmarlo.
-- `python3 scripts/sounds_make.py` rigenera i suoni «Sine» (sintetizzati, nessun campione di terzi).
+| Variabile | Effetto |
+|---|---|
+| `NOTCH_AGENTI_FIXTURE=1` | Dati finti, per le schermate |
+| `NOTCH_AGENTI_OPEN=1` | Tiene il notch aperto |
+| `NOTCH_AGENTI_DEMO=1` | Lo apre e chiude ogni 1,5 secondi |
+| `NOTCH_AGENTI_DEMO=tour` | Ripete il giro dell'animazione in cima a questa pagina (con `FIXTURE=1`) |
 
-## Licenza
+`python3 scripts/sounds_make.py` rigenera i suoni «Sine»: sono sintetizzati, nessun campione di terzi.
 
-[MIT](LICENSE) © Mattia Calastri
+</details>
+
+<br>
+
+<div align="center">
+<sub><a href="LICENSE">Licenza MIT</a> · © Mattia Calastri</sub>
+</div>
