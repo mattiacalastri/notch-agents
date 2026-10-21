@@ -25,9 +25,17 @@ def ours(entry):
 
 
 def load(path):
+    """The settings as they are. A file that is not a JSON object stops everything:
+    rewriting it would lose what is in it."""
     if not path.exists() or not path.read_text().strip():
         return {}
-    return json.loads(path.read_text())
+    try:
+        data = json.loads(path.read_text())
+    except json.JSONDecodeError as e:
+        sys.exit(f"{path} non è JSON valido (riga {e.lineno}): correggilo e rilancia, così com'è non lo tocco.")
+    if not isinstance(data, dict):
+        sys.exit(f"{path} non contiene un oggetto JSON: correggilo e rilancia, così com'è non lo tocco.")
+    return data
 
 
 def save(path, data):

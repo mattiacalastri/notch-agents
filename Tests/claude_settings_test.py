@@ -63,6 +63,13 @@ class SettingsTests(unittest.TestCase):
         cs.uninstall(self.settings, self.previous)
         self.assertEqual(self.read(), {})
 
+    def test_a_broken_settings_file_is_never_rewritten(self):
+        for broken in ['{"model": "opus",', '[]']:
+            self.settings.write_text(broken)
+            with self.assertRaises(SystemExit):
+                cs.install(self.settings, HOOK, LINE, self.previous)
+            self.assertEqual(self.settings.read_text(), broken)
+
 
 if __name__ == "__main__":
     unittest.main()
